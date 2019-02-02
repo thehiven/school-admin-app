@@ -29,6 +29,8 @@ export default class CourseUpdate extends Component {
     axiosGetCourse.call(this, this.props.match.params.id);
   }
 
+  // updates form's values based on this components state
+  // values are updated based on previous state
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
@@ -47,6 +49,10 @@ export default class CourseUpdate extends Component {
     }));
   }
 
+  // request to update stored in this component state course
+  // uses values from the state
+  // on success redirects to the course's details page
+  // on failure shows user friendly validation errors
   handleSubmit(event) {
     event.preventDefault();
     Axios.put(`http://localhost:5000/api/courses/${this.state.course._id}`, this.state.course, {
@@ -69,6 +75,7 @@ export default class CourseUpdate extends Component {
       <div className="bounds course--detail">
         <h1>Update Course</h1>
         <div>
+          {/* displays validation error only if there's an error message */}
           <ValidationError message={this.state.validationError} />
           <form onSubmit={this.handleSubmit}>
             <div className="grid-66">

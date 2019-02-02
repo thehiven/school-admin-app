@@ -19,6 +19,9 @@ export default class CreateCourse extends Component {
     this.handleCancel = handleCancel.bind(this);
   }
 
+  // request to create course
+  // on success redirects to index page
+  // on failure displays validation errors
   handleSubmit(event) {
     event.preventDefault();
     Axios.post('http://localhost:5000/api/courses', this.state, {

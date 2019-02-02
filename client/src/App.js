@@ -10,6 +10,7 @@ import CreateCourse from './components/CreateCourse';
 import CourseUpdate from './components/CourseUpdate';
 import SignOut from './components/SignOut';
 
+// high order component that returns either <Route> or <Redirect> depending on auth status
 const PrivateRoute = ({authStatus, component: Component, ...rest}) => {
   return (
     <Route {...rest} render={props => authStatus.userSignedIn ? <Component {...props} authStatus={authStatus} /> : <Redirect to="/signin" />} />
@@ -32,6 +33,8 @@ class App extends Component {
     this.handleSignOut = this.handleSignOut.bind(this);
   }
 
+  // request to create new user
+  // failure callback is used to display user friendly validation errors
   signUpRequest(dataObject, history, failureCallback) {
     Axios.post('http://localhost:5000/api/users', dataObject)
       .then(response => {
@@ -43,6 +46,7 @@ class App extends Component {
       });
   }
 
+  // request to authentificate user
   signInRequest(emailAddress, password, history, failureCallback) {
     Axios.get('http://localhost:5000/api/users', {
       auth: {
@@ -51,7 +55,7 @@ class App extends Component {
       }
     })
     .then(response => {
-      response.data.password = password;
+      response.data.password = password; // save actual password instead of hash string
       this.setState({
         authStatus: {
           userSignedIn: true,
@@ -66,6 +70,7 @@ class App extends Component {
     });
   }
 
+  // clear user information
   handleSignOut() {
     this.setState({
       authStatus: {

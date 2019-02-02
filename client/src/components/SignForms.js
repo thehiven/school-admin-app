@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { handleInputChange, handleCancel, handleRequestFailure, ValidationError } from '../utils/Utils';
 
+// stateful component that displays sign up form
 export class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -21,6 +22,8 @@ export class SignUp extends Component {
     this.handleFailure = handleRequestFailure.bind(this);
   }
 
+  // calls sign up request on App component
+  // provides failure callback
   handleSubmit(event) {
     event.preventDefault();
     this.props.signUpRequest(this.state, this.props.history, this.handleFailure);
@@ -64,6 +67,7 @@ export class SignUp extends Component {
   }
 };
 
+// statefull component that renders sign in form
 export class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -80,6 +84,8 @@ export class SignIn extends Component {
     this.handleFailure = handleRequestFailure.bind(this);
   }
 
+  // calls sign in request on App component
+  // provides failure callback
   handleSubmit(event) {
     event.preventDefault();
     this.props.signInRequest(this.state.emailAddress, this.state.password, this.props.history, this.handleFailure);

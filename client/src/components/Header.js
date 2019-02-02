@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// stateless component used to display navigation for authentificated users
 const SignedInNav = ({firstName, lastName}) => {
   return (
     <nav>
@@ -10,6 +11,7 @@ const SignedInNav = ({firstName, lastName}) => {
   );
 };
 
+// stateless component renders navigation for guests
 const SignedOutNav = () => {
   return (
     <nav>

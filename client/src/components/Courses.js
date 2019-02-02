@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
+// stateless component used to render a card for each course
 const Course = (props) => {
   return (
     <div className="grid-33">
@@ -13,6 +14,7 @@ const Course = (props) => {
   );
 };
 
+// stateless component used to render 'create course' button
 const CreateCourseButton = (props) => {
   return (
     <div className="grid-33">
@@ -34,16 +36,15 @@ export default class Courses extends Component {
     super(props);
 
     this.state = {
-      courseCount: 0,
       courses: []
     };
   }
 
   componentDidMount() {
+    // get all courses from server and store them in this component state
     Axios.get('http://localhost:5000/api/courses')
       .then(result => {
         this.setState({
-          courseCount: result.data.courseCount,
           courses: result.data.courses
         });
       })
@@ -54,6 +55,7 @@ export default class Courses extends Component {
     return (
       <div>
         <div className="bounds">
+          {/* render cards for each course */}
           {this.state.courses.map(course => {
             return <Course key={course._id} id={course._id} title={course.title} />
           })}

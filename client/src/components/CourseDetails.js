@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 
+// gets course by id and stores it in bound object's state
+// has to be bound to work properly
 export function axiosGetCourse(courseID) {
   Axios.get(`http://localhost:5000/api/courses/${courseID}`)
     .then(response => {
@@ -14,11 +16,13 @@ export function axiosGetCourse(courseID) {
     .catch(error => console.log(error));
 }
 
+// stateless component that renders course navigation depending on auth status
 const CourseNavigation = (props) => {
   return (
     <div className="actions--bar">
       <div className="bounds">
         <div className="grid-100">
+            {/* if there's an authentificated user and that user is the owner display owner functionality */}
             {props.courseOwner ? (
               <span>
                 <Link as="a" className="button" to={`/courses/${props.courseID}/update`}>Update Course</Link>
@@ -48,7 +52,8 @@ export default class CourseDetails extends Component {
     axiosGetCourse.call(this, this.props.match.params.id);
   }
   
-
+  // delete request
+  // after success redirects back to index page
   deleteCourse() {
     Axios.delete(`http://localhost:5000/api/courses/${this.state.course._id}`, {
       auth: {
@@ -66,6 +71,7 @@ export default class CourseDetails extends Component {
     const {title, user, description, estimatedTime, materialsNeeded} = this.state.course;
     return (
       <div>
+        {/* try to check for owner only after course is loaded */}
         {this.state.courseLoaded && <CourseNavigation courseOwner={this.props.authStatus.user._id === user._id} courseID={this.state.course._id} deleteCallback={this.deleteCourse} />}
         <div className="bounds course--detail">
           <div className="grid-66">
