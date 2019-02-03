@@ -26,7 +26,15 @@ export class SignUp extends Component {
   // provides failure callback
   handleSubmit(event) {
     event.preventDefault();
-    this.props.signUpRequest(this.state, this.props.history, this.handleFailure);
+    if (this.checkPasswords()) {
+      this.props.signUpRequest(this.state, this.props.history, this.handleFailure);
+    } else {
+      this.handleFailure("Passwords do not match!");
+    }
+  }
+
+  checkPasswords() {
+    return this.state.password === this.state.confirmPassword;
   }
 
   render() {

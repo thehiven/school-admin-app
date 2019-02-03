@@ -8,7 +8,7 @@ export default class CreateCourse extends Component {
 
     this.state = {
       title: '',
-      description: 'Course description...',
+      description: '',
       estimatedTime: '',
       materialsNeeded: '',
       validationError: ''
@@ -55,7 +55,7 @@ export default class CreateCourse extends Component {
                 <p>By {this.props.authStatus.user.firstName} {this.props.authStatus.user.lastName}</p>
               </div>
               <div className="course--description">
-                <div><textarea id="description" name="description" value={this.state.description} onChange={this.handleInputChange}></textarea></div>
+                <div><textarea id="description" name="description" value={this.state.description} onChange={this.handleInputChange} placeholder="Course description..."></textarea></div>
               </div>
             </div>
             <div className="grid-25 grid-right">
